@@ -26,4 +26,6 @@
 ### Proje Özellikleri
 
 -- require yerine import modeli tercih kullanılıdı,
+-- hata middleware'i yapıldı kod tekrarı önlendi,
+
 # fiverrClone-fs
