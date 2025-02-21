@@ -22,6 +22,7 @@
 -- axios (api istekleri için),
 -- react-query (api istekleri için - axios'a göre kolaylaştırıyor),
 -- tailwind (stillendirme için),
+-- uiverse (toggle için - yüklemeye gerek yok)
 
 ### Proje Özellikleri
 
