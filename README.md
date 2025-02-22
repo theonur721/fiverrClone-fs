@@ -28,5 +28,3 @@
 -- require yerine import modeli tercih kullanılıdı,
 -- hata middleware'i yapıldı kod tekrarı önlendi,
 -- uiverse (toggle için - yüklemeye gerek yok)
-
-# fiverrClone-fs
