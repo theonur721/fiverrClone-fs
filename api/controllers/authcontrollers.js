@@ -9,6 +9,9 @@ export const register = async (req, res, next) => {
     // şifreyi hashle ve saltla
     const hashedPassword = bcrypt.hashSync(req.body.password, 12);
 
+    // foto buluta yükle
+    req.body.photo = "default.jpg";
+
     // veritabanına kaydedilecek kullanıcıyı oluştur - ve kaydet
     const newUser = await User.create({
       ...req.body,
@@ -62,6 +65,7 @@ export const login = async (req, res, next) => {
     res.cookie("token", token).status(200).json({
       message: "Hesaba giriş başarılı",
       user,
+      token,
     });
   } catch (err) {
     next(error(401, "Geçersiz giriş"));

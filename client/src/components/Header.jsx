@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
+import User from "./Header/User";
+import Links from "./Header/Links";
 
 const Header = () => {
+  // localden kullanıcı bilgilerini alma
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // kullanıcı varsa headerdeki linkleri göster, yoksa login e yönlendir
+
   return (
     <header className="p-5 shadow">
       <div className="max-w-[1440px] mx-auto flex justify-between gap-4 md:gap-8">
@@ -21,16 +28,8 @@ const Header = () => {
           </button>
         </form>
 
-        <div className="flex items-center gap-2 relative">
-          <Link className="transition hover:text-green-500" to="/login">
-            Login
-          </Link>
-          <Link
-            className="transition border rounded border-green-500 p-1 hover:bg-green-500 hover:text-white"
-            to="/register"
-          >
-            Sign Up
-          </Link>
+        <div className="flex items-center gap-2 relative group">
+          {user ? <User data={user} /> : <Links />}
         </div>
       </div>
     </header>

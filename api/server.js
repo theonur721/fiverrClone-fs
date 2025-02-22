@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authrouter from "./routes/authroutes.js";
 import morgan from "morgan";
+import cors from "cors";
 
 dotenv.config();
 
@@ -15,11 +16,15 @@ mongoose
   .then(() => console.log("🍀 veritabanı ile bağlantı kuruldu"))
   .catch((err) => console.log("🍁 veritabanı ile bağlantı kurulamadı", err));
 
-// body/query alanındaki json içeriğinin işlenmesini sağlar
+//*** MİDDLEWARES ***
+//(a) body/query alanındaki json içeriğinin işlenmesini sağlar
 app.use(express.json());
 
-// api isteklerini gösteren morgan middlewaresi
+//(b) api isteklerini gösteren morgan middlewaresi
 app.use(morgan("dev"));
+
+// (c) cors hatalarını önler
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // kontrol route
 app.route("health").get((req, res) => {
