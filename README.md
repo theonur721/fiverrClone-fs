@@ -25,6 +25,6 @@
 
 ### Proje Özellikleri
 
--- require yerine import modeli tercih kullanılıdı,
+-- require yerine import modeli tercih edildi,
 -- hata middleware'i yapıldı kod tekrarı önlendi,
 -- uiverse (toggle için - yüklemeye gerek yok)

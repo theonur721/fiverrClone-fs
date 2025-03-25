@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import User from "./Header/User";
 import Links from "./Header/Links";
+import { AuthContext } from "../context/authContext";
 
 const Header = () => {
-  // localden kullanıcı bilgilerini alma
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useContext(AuthContext);
 
   // kullanıcı varsa headerdeki linkleri göster, yoksa login e yönlendir
 

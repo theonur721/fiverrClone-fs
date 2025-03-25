@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import api from "../utils/api";
-import { toast } from "react-toastify";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 const Login = () => {
-  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,19 +14,7 @@ const Login = () => {
 
     const user = Object.fromEntries(formData.entries());
 
-    api
-      .post("auth/login", user)
-      .then((res) => {
-        // bildirim gönder
-        toast.success(res.data.message);
-        // kullanıcı bilgilerinin locale kaydet
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        // token kaydet
-        localStorage.setItem("token", res.data.token);
-        // yönlendir
-        navigate("/");
-      })
-      .catch((err) => toast.error(err.message));
+    login(user);
   };
   return (
     <div className="pt-24 max-w-[700px] mx-auto sm:min-w-[400px] max-sm:w-full">

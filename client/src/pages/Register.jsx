@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Input from "../components/Input";
 import Toggler from "../components/Toggler";
 import Button from "../components/Button";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import api from "../utils/api";
+import { Link } from "react-router-dom";
+
+import { AuthContext } from "../context/authContext";
 const Register = () => {
   const [isSeller, setIsSeller] = useState(false);
 
-  const navigate = useNavigate();
+  const { register } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,16 +22,8 @@ const Register = () => {
     // satıcı hesabı ise nesne içine bunu kaydet
     newUser.isSeller = isSeller;
 
-    // kullanıcı hesabı oluşturmak için api isteği at
-    api
-      .post("auth/register", newUser)
-      .then((res) => {
-        toast.success(
-          "Your account has been successfully created. You can login..."
-        );
-        navigate("/login");
-      })
-      .catch((err) => toast.error(err.message));
+    // context ten gelen kaydolma methodu
+    register(newUser);
   };
 
   return (
