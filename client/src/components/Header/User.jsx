@@ -8,7 +8,7 @@ const User = ({ data }) => {
   return (
     <>
       <img
-        src="https://picsum.photos/200"
+        src={data.photo}
         className="w-[40px] h-[40px] object-cover rounded-full"
       />
       <span>{data.username}</span>

@@ -34,7 +34,9 @@ export const AuthProvider = ({ children }) => {
   const register = (newUser) => {
     // kullanıcı hesabı oluşturmak için api isteği at
     api
-      .post("auth/register", newUser)
+      .post("auth/register", newUser, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then((res) => {
         toast.success(
           "Your account has been successfully created. You can login..."

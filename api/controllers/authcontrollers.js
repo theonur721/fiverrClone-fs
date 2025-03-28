@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import User from "../models/usermodels.js";
 import error from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import cloudinary from "../utils/cloudinary.js";
 
 // KAYDOL: yeni hhesap oluştur ********************************
 export const register = async (req, res, next) => {
@@ -9,8 +10,22 @@ export const register = async (req, res, next) => {
     // şifreyi hashle ve saltla
     const hashedPassword = bcrypt.hashSync(req.body.password, 12);
 
+    // gloabal değişken
+    let photo;
     // foto buluta yükle
-    req.body.photo = "default.jpg";
+    await cloudinary.uploader.upload(req.file.path, (err, res) => {
+      // hata olursa ele al
+      if (err) {
+        console.log("hata oluştu");
+        return console.log(err);
+      }
+
+      //hata olmazsa yüklenen fotoyu global değişkene aktar
+      photo = res.secure_url;
+    });
+
+    // kullanıcı bilgisine buluttaki fotoyu aktarma
+    req.body.photo = photo;
 
     // veritabanına kaydedilecek kullanıcıyı oluştur - ve kaydet
     const newUser = await User.create({

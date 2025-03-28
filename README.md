@@ -11,6 +11,7 @@
 -- dotenv (env ortam değişkenleri için),
 -- morgan (yaptığımız istekleri terminale yazdırır),
 -- cors ( cors hataları, veri aktarırken tarayıcı uyarıları vs için)
+-- multer (fotoğrafa erişmek için- frontendden backende dosya gönderirken kullanılmalıdır),
 
 ## Frontend
 
@@ -27,4 +28,6 @@
 
 -- require yerine import modeli tercih edildi,
 -- hata middleware'i yapıldı kod tekrarı önlendi,
--- uiverse (toggle için - yüklemeye gerek yok)
+-- uiverse (toggle için - yüklemeye gerek yok),
+-- state yönetimi için: context
+-- frontend backend dosya gönderim ve erişimin için multer kullanıldı,
