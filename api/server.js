@@ -2,8 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authrouter from "./routes/authroutes.js";
+import gigRouter from "./routes/gigRoutes.js";
 import morgan from "morgan";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -26,6 +28,9 @@ app.use(morgan("dev"));
 // (c) cors hatalarını önler
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
+// (d) istekle gelen çerezleri işler
+app.use(cookieParser());
+
 // kontrol route
 app.route("health").get((req, res) => {
   res.json("server çalışıyor");
@@ -33,6 +38,7 @@ app.route("health").get((req, res) => {
 
 // routleri tanımla
 app.use("/api/auth", authrouter);
+app.use("/api/gigs", gigRouter);
 
 // hatalı yönetimi için
 // - controllerden yapılan yönlendirmeler için bu middleware çalışacak

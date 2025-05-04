@@ -68,7 +68,7 @@ export const login = async (req, res, next) => {
 
     // (5) şifre doğruysa jwt token oluştur
     const token = jwt.sign(
-      { id: user._id, isSellar: user.isSeller },
+      { id: user._id, isSeller: user.isSeller },
       process.env.JWT_KEY,
       { expiresIn: "7d" }
     );

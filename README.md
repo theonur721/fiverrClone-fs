@@ -12,6 +12,7 @@
 -- morgan (yaptığımız istekleri terminale yazdırır),
 -- cors ( cors hataları, veri aktarırken tarayıcı uyarıları vs için)
 -- multer (fotoğrafa erişmek için- frontendden backende dosya gönderirken kullanılmalıdır),
+-- cloudinary (bulut depolama için),
 
 ## Frontend
 
@@ -23,6 +24,7 @@
 -- axios (api istekleri için),
 -- react-query (api istekleri için - axios'a göre kolaylaştırıyor),
 -- tailwind (stillendirme için),
+-- context (state yönetimi için),
 
 ### Proje Özellikleri
 
