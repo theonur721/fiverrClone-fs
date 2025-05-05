@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import User from "./Header/User";
 import Links from "./Header/Links";
@@ -7,6 +7,14 @@ import { AuthContext } from "../context/authContext";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const text = e.target[0].value;
+
+    navigate(`/search?query=${text}`);
+  };
 
   // kullanıcı varsa headerdeki linkleri göster, yoksa login e yönlendir
 
@@ -17,7 +25,10 @@ const Header = () => {
           <img className="w-[100px]" src="/fiverr.png" alt="fiverrLogo" />
         </Link>
 
-        <form className="flex-1 flex border rounded overflow-hidden max-w-[600px]">
+        <form
+          onSubmit={handleSubmit}
+          className="flex-1 flex border rounded overflow-hidden max-w-[600px]"
+        >
           <input
             type="text"
             placeholder="Search services..."
