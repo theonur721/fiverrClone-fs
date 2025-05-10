@@ -2,6 +2,8 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import api from "../../utils/api";
 import { useQuery } from "@tanstack/react-query";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 
 const Search = () => {
   const [params] = useSearchParams();
@@ -24,6 +26,16 @@ const Search = () => {
           ? `results for ${query}`
           : category && `results for ${category}category `}
       </h1>
+
+      <div>
+        {isLoading ? (
+          <Loader />
+        ) : error ? (
+          <Error info={error} />
+        ) : (
+          data && data.map(() => <div>KART</div>)
+        )}
+      </div>
     </div>
   );
 };
