@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Search from "./pages/search";
+import AddGig from "./pages/add_gig";
 
 const App = () => {
   return (
@@ -17,6 +18,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/add-gig" element={<AddGig />} />
+          <Route path="/detail" element={<h1>DETAY</h1>} />
         </Routes>
       </div>
       <Footer />

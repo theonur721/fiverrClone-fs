@@ -40,3 +40,35 @@ export const items = [
     text: "Pay only for work you approve, and release funds when you’re satisfied with the results.",
   },
 ];
+
+export const inputs = [
+  {
+    label: "Title",
+    name: "title",
+    isReq: true,
+  },
+  {
+    label: "Description",
+    name: "desc",
+    isReq: true,
+  },
+  {
+    label: "Category",
+    name: "category",
+    isReq: true,
+    type: "select",
+  },
+  {
+    label: "Cover",
+    name: "cover",
+    isReq: true,
+    type: "file",
+  },
+  {
+    label: "Images",
+    name: "images",
+    isReq: true,
+    type: "file",
+    isMulti: true,
+  },
+];

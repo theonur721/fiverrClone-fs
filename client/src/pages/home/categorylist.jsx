@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const CategoryList = () => {
   const navigate = useNavigate();
   const handleClick = (i) => {
-    navigate(`/search/category=${i.name}`);
+    navigate(`/search?category=${i.name}`);
   };
   return (
     <div className="mt-10 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-9 gap-5">

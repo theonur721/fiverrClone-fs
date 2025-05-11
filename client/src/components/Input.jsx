@@ -7,6 +7,7 @@ const Input = ({
   type = "text",
   placeholder,
   disabled = false,
+  isMulti,
 }) => {
   return (
     <div className="mb-5">
@@ -17,7 +18,8 @@ const Input = ({
         type={type}
         required={isReq}
         disabled={disabled}
-        className="bg-gray-50 border-gray-300 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 placeholder-gray-400 text-dark disabled:bg-gray-200 focus:blue-green-500"
+        multiple={isMulti}
+        className="bg-gray-50 border text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 placeholder-gray-400 text-dark disabled:bg-gray-200 focus:blue-green-500"
       />
     </div>
   );

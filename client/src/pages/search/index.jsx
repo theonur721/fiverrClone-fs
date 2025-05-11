@@ -4,20 +4,26 @@ import api from "../../utils/api";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader";
 import Error from "../../components/Error";
+import Card from "./Card";
 
 const Search = () => {
-  const [params] = useSearchParams();
-  const query = params.get("query");
-  const category = params.get("category");
+  //urlden parametre al
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
+  const category = searchParams.get("category");
+
+  // apiye göderilcek parametreler
+  const params = {
+    category,
+    search: query,
+  };
 
   //api'dan hizmetleri al
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["gigs"],
-    queryFn: () => api.get("/gigs").then((res) => res.data.gigs),
+    queryKey: ["gigs", params],
+    queryFn: () => api.get("/gigs", { params }).then((res) => res.data.gigs),
   });
-
-  console.log(isLoading, data, error);
 
   return (
     <div>
@@ -33,7 +39,9 @@ const Search = () => {
         ) : error ? (
           <Error info={error} />
         ) : (
-          data && data.map(() => <div>KART</div>)
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 my-5">
+            {data && data.map((item) => <Card key={item._id} item={item} />)}
+          </div>
         )}
       </div>
     </div>
