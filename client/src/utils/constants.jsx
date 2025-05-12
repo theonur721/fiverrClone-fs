@@ -48,15 +48,20 @@ export const inputs = [
     isReq: true,
   },
   {
-    label: "Description",
-    name: "desc",
+    label: "Side Title",
+    name: "shortTitle",
     isReq: true,
   },
   {
-    label: "Category",
-    name: "category",
+    label: "Description",
+    name: "desc",
+    type: "textarea",
     isReq: true,
-    type: "select",
+  },
+  {
+    label: "Features (separate with ,)",
+    name: "features",
+    type: "textarea",
   },
   {
     label: "Cover",
@@ -70,5 +75,32 @@ export const inputs = [
     isReq: true,
     type: "file",
     isMulti: true,
+  },
+  {
+    label: "Side Description",
+    name: "shortDesc",
+    isReq: true,
+  },
+  {
+    label: "Revision Number",
+    name: "revisionNumber",
+    type: "number",
+    isReq: true,
+    min: 1,
+  },
+  {
+    label: "Delivery Time",
+    name: "deliveryTime",
+    trype: "number",
+    isReq: true,
+    min: 1,
+    max: 90,
+  },
+  {
+    label: "Price ($)",
+    name: "price",
+    type: "number",
+    isReq: true,
+    min: 1,
   },
 ];
