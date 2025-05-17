@@ -23,6 +23,9 @@ const AddGig = () => {
     // Fotoğraflar inputundaki bğtğn fotoları al
     gigData.images = e.target.images.files;
 
+    // özellikleri stringden diziye çevir
+    gigData.features = gigData.features.split(",");
+
     // apiye post isteği at
     mutate(gigData);
   };
@@ -41,7 +44,10 @@ const AddGig = () => {
         </div>
 
         <div className="flex md:justify-center my-5">
-          <button className="bg-green-500 px-6 py-2 rounded-md text-white hover:bg-green-600 max-md:w-full w-1/2">
+          <button
+            disabled={isPending}
+            className="bg-green-500 px-6 py-2 rounded-md text-white hover:bg-green-600 max-md:w-full w-1/2"
+          >
             Create
           </button>
         </div>
