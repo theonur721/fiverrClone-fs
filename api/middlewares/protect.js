@@ -19,9 +19,9 @@ const protect = (req, res, next) => {
     // (5) token geçerliyse kullanıcı bilgilerini req nesnesine kaydet
     req.userId = payload.id;
     req.isSeller = payload.isSeller;
+    // (6) sonraki adıma geç
+    next();
   });
-  // (6) sonraki adıma geç
-  next();
 };
 
 export default protect;

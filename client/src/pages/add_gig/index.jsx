@@ -16,18 +16,15 @@ const AddGig = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //inputlardaki verilere eriş
     const formData = new FormData(e.target);
-    const gigData = Object.fromEntries(formData.entries());
 
-    // Fotoğraflar inputundaki bğtğn fotoları al
-    gigData.images = e.target.images.files;
+    // dosyalar zaten formData içinde, eğer elle ekleyeceksen, aşağıdaki kodu kullan
+    [...e.target.images.files].forEach((file) => {
+      formData.append("images", file);
+    });
 
-    // özellikleri stringden diziye çevir
-    gigData.features = gigData.features.split(",");
-
-    // apiye post isteği at
-    mutate(gigData);
+    // api'ye post isteği at
+    mutate(formData); // burada gigData değil formData göndermen gerekiyor çünkü multipart/form-data ile dosya gönderiyorsun
   };
 
   return (
@@ -45,7 +42,7 @@ const AddGig = () => {
 
         <div className="flex md:justify-center my-5">
           <button
-            disabled={isPending}
+            // disabled={isPending}
             className="bg-green-500 px-6 py-2 rounded-md text-white hover:bg-green-600 max-md:w-full w-1/2"
           >
             Create

@@ -63,12 +63,7 @@ export const inputs = [
     name: "features",
     type: "textarea",
   },
-  {
-    label: "Cover",
-    name: "cover",
-    isReq: true,
-    type: "file",
-  },
+  { label: "Cover", name: "cover", isReq: true, type: "file" },
   {
     label: "Images",
     name: "images",
@@ -91,7 +86,7 @@ export const inputs = [
   {
     label: "Delivery Time",
     name: "deliveryTime",
-    trype: "number",
+    type: "number",
     isReq: true,
     min: 1,
     max: 90,

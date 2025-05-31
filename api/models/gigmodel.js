@@ -38,7 +38,7 @@ const gigSchema = new Schema(
       type: String,
       required: [true, "Short title is required"],
     },
-    shortDes: {
+    shortDesc: {
       type: String,
       required: [true, "Short description is required"],
     },

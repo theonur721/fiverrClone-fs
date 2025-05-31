@@ -77,21 +77,22 @@ export const getGig = async (req, res, next) => {
       gig,
     });
   } catch (error) {
-    mext(error(500, "GetGig - Something went wrong"));
+    next(error(500, "GetGig - Something went wrong"));
   }
 };
 
 // GİG OLUŞTUR
 export const createGig = async (req, res, next) => {
-  // isteği atan kullanıcının hatası seller değilse hata gönder
-
   if (!req.isSeller) return next(error(423, "Only sellers can create a gig"));
 
+  console.log("Apiye gelen dosyalar", req.files);
+  console.log("Apiye gelen data", req.body);
   try {
-    // (2) yeni hizmet oluştur
-    const savedGig = await Gig.create({ ...req.body, user: req.userId });
+    // hizmetleri diziye çevir
+    req.body.features = gigData.features?.split(",");
 
-    // (3) clienta başareılı cevap gönder
+    const savedGig = await Gig.create({ ...req });
+
     res.status(201).json({
       message: "Success ✅ Created gig",
       gig: savedGig,

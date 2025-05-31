@@ -14,10 +14,10 @@ const Card = ({ item }) => {
       />
 
       <div className="flex gap-2 items-center">
-        <img className="size-10 rounded-full" src={item.user.photo} alt="" />
+        <img className="size-10 rounded-full" src={item?.user?.photo} alt="" />
         <p>
           by {""}
-          <span className="font-semibold">{item.user.username}</span>
+          <span className="font-semibold">{item?.user?.username}</span>
         </p>
       </div>
 

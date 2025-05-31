@@ -77,11 +77,17 @@ export const login = async (req, res, next) => {
     user.password = null;
 
     // (6) tokeni cliente gönder
-    res.cookie("token", token).status(200).json({
-      message: "Hesaba giriş başarılı",
-      user,
-      token,
-    });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        sameSite: "none",
+      })
+      .status(200)
+      .json({
+        message: "Hesaba giriş başarılı",
+        user,
+        token,
+      });
   } catch (err) {
     next(error(401, "Geçersiz giriş"));
   }

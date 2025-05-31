@@ -26,13 +26,19 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // (c) cors hatalarını önler
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    methods: ["GET", "POST", "DELETE", "PATCH"],
+  })
+);
 
 // (d) istekle gelen çerezleri işler
 app.use(cookieParser());
 
 // kontrol route
-app.route("health").get((req, res) => {
+app.route("/health").get((req, res) => {
   res.json("server çalışıyor");
 });
 

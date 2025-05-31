@@ -18,7 +18,7 @@ const Input = ({
       {type === "textarea" ? (
         <textarea
           required={isReq}
-          name="name"
+          name={name}
           className=" min-h-[100px] max-h-[250px] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 text-dark focus:border-blue-500"
         />
       ) : (
