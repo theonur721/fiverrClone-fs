@@ -7,6 +7,15 @@ import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+import fs from "fs";
+import path from "path";
+
+const uploadDir = path.join(process.cwd(), "uploads");
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
 dotenv.config();
 
 // express'i oluştur

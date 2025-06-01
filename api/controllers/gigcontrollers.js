@@ -1,12 +1,12 @@
 import error from "../utils/error.js";
 import Gig from "../models/gigmodel.js";
-// TÜM HİZMETLERİ AL
-// (1) Filtreleme fonksiyonu
+import cloudinary from "../utils/cloudinary.js";
+import { promises as fs } from "fs"; // temp dosyaları silmek için
+
+// 🔍 FİLTRELEME FONKSİYONU
 const buildFilters = (query) => {
-  // -(1) filtreleme nesnesi oluşturma
   const filters = {};
 
-  // -(2) eğerki query.userId gibi sorgulama varsa filters nesnesine user ekler query.userId ye eşitler
   if (query.userId) {
     filters.user = query.userId;
   }
@@ -17,110 +17,129 @@ const buildFilters = (query) => {
 
   if (query.min || query.max) {
     filters.price = {};
-    // eğerki query.min veya query.max varsa price nesnesine min ve max ekler
-    if (query.min) {
-      filters.price.$gte = query.min;
-    }
-    if (query.max) {
-      filters.price.$lte = query.max;
-    }
+    if (query.min) filters.price.$gte = query.min;
+    if (query.max) filters.price.$lte = query.max;
   }
 
   if (query.search) {
     filters.title = {
-      // -(2) title alanında arama yapar kelimenin tutması yeter
       $regex: query.search,
-      $options: "i", // büyük küçük harf duyarsız
+      $options: "i",
     };
   }
 
-  // -(3)  //fonksiyonun çağrıldığı yere nesneyi döndür
   return filters;
-
-  // -(4) fonksiyonun çağrıldığı yere nesneyi döndür
 };
-// TÜM HİZMETLERİ AL
+
+// 📥 TÜM HİZMETLERİ GETİR
 export const getAllGigs = async (req, res, next) => {
-  // -(5) filtreleme fonksiyonunu çağır
   const filters = buildFilters(req.query);
+
   try {
-    // (1) tüm hizmetleri veritabanından al
-    // populate ile hizmet sahibi kullanıcının bilgilerini de al resim foto vs
-    // -(6) find metodunu filtrelemeye göre çalıştırır
     const gigs = await Gig.find(filters).populate({
       path: "user",
       select: "username photo",
     });
 
-    // (2) eğer hizmet yoksa hata gönder
     if (gigs.length === 0) return next(error(404, "No gigs found"));
 
     res.status(200).json({
-      message: "Success ✅ All gigs",
+      message: "✅ Tüm hizmetler başarıyla getirildi",
       results: gigs.length,
       gigs,
     });
-  } catch (error) {
-    next(error(500, "GetAllGigs - Something went wrong"));
+  } catch (err) {
+    next(error(500, "GetAllGigs - Sunucu hatası"));
   }
 };
 
-//
-// HİZMETİ AL
+// 📥 TEK BİR HİZMETİ GETİR
 export const getGig = async (req, res, next) => {
   try {
     const gig = await Gig.findById(req.params.id).populate("user");
-    // TODO:::: password gönderilmemeli
+
+    if (!gig) return next(error(404, "Gig not found"));
 
     res.status(200).json({
-      message: "Success ✅ Single gig",
+      message: "✅ Hizmet bulundu",
       gig,
     });
-  } catch (error) {
-    next(error(500, "GetGig - Something went wrong"));
-  }
-};
-
-// GİG OLUŞTUR
-export const createGig = async (req, res, next) => {
-  if (!req.isSeller) return next(error(423, "Only sellers can create a gig"));
-
-  console.log("Apiye gelen dosyalar", req.files);
-  console.log("Apiye gelen data", req.body);
-  try {
-    // hizmetleri diziye çevir
-    req.body.features = gigData.features?.split(",");
-
-    const savedGig = await Gig.create({ ...req });
-
-    res.status(201).json({
-      message: "Success ✅ Created gig",
-      gig: savedGig,
-    });
   } catch (err) {
-    next(error(400, err.message));
+    next(error(500, "GetGig - Sunucu hatası"));
   }
 };
 
-// HİZMETİ SİL
-export const deleteGig = async (req, res, next) => {
-  try {
-    //hizmet detaylarını al
-    const gig = await Gig.findById(req.params.id);
+// 🆕 GİG OLUŞTUR
+export const createGig = async (req, res, next) => {
+  if (!req.isSeller) return next(error(403, "Only sellers can create a gig"));
 
-    // hizmeti oluşturan silenle aynı mı? değilse hata ver
-    if (gig.user != req.userId) {
-      return next(error(403, "You can only delete your own gigs"));
+  try {
+    const coverFile = req?.files?.cover?.[0];
+    const imageFiles = req?.files?.images || [];
+
+    if (!coverFile || imageFiles.length === 0) {
+      return next(error(400, "Cover ve en az 1 görsel zorunlu"));
     }
 
-    // hizmeti sil
+    // 🔹 COVER yükle ve temp dosyayı sil
+    const coverUpload = await cloudinary.uploader.upload(coverFile.path);
+    await fs.unlink(coverFile.path);
+
+    // 🔹 Diğer görselleri yükle
+    const uploadedImages = [];
+    for (const file of imageFiles) {
+      const result = await cloudinary.uploader.upload(file.path);
+      uploadedImages.push(result.secure_url);
+      await fs.unlink(file.path);
+    }
+
+    // 🔹 Özellikleri string'ten array'e çevir
+    const featuresArray = req.body.features?.split(",").map((f) => f.trim());
+
+    // 🔹 Yeni hizmet oluştur
+    const newGig = await Gig.create({
+      user: req.userId,
+      title: req.body.title,
+      shortTitle: req.body.shortTitle,
+      desc: req.body.desc,
+      shortDesc: req.body.shortDesc,
+      features: featuresArray,
+      revisionNumber: req.body.revisionNumber,
+      deliveryTime: req.body.deliveryTime,
+      price: req.body.price,
+      category: req.body.category,
+      cover: coverUpload.secure_url,
+      images: uploadedImages,
+    });
+    console.log("Yeni gig oluşturuldu:", newGig);
+
+    res.status(201).json({
+      message: "✅ Gig başarıyla oluşturuldu",
+      gig: newGig,
+    });
+  } catch (err) {
+    console.error("Gig oluşturma hatası:", err);
+    next(error(500, "Sunucu hatası, gig oluşturulamadı"));
+  }
+};
+
+// ❌ GİG SİL
+export const deleteGig = async (req, res, next) => {
+  try {
+    const gig = await Gig.findById(req.params.id);
+
+    if (!gig) return next(error(404, "Gig not found"));
+
+    if (gig.user.toString() !== req.userId) {
+      return next(error(403, "Sadece kendi gig’ini silebilirsin"));
+    }
+
     await Gig.findByIdAndDelete(req.params.id);
 
-    // cliente cevap gönder
     res.status(200).json({
-      message: "Success ✅ Deleted gig",
+      message: "✅ Gig silindi",
     });
-  } catch (error) {
-    next(error(500, "DeleteGig - Something went wrong"));
+  } catch (err) {
+    next(error(500, "DeleteGig - Sunucu hatası"));
   }
 };

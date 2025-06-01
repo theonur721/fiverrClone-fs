@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Search from "./pages/search";
 import AddGig from "./pages/add_gig";
+import Detail from "./pages/detail/index";
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<Search />} />
           <Route path="/add-gig" element={<AddGig />} />
-          <Route path="/detail" element={<h1>DETAY</h1>} />
+          <Route path="/detail/:id" element={<Detail />} />
         </Routes>
       </div>
       <Footer />

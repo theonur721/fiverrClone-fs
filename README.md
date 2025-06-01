@@ -25,6 +25,7 @@
 -- react-query (api istekleri için - axios'a göre kolaylaştırıyor),
 -- tailwind (stillendirme için),
 -- context (state yönetimi için),
+-- splide (fotoğraf kaydırmalı görüntülenme için)
 
 ### Proje Özellikleri
 

@@ -29,7 +29,6 @@ const gigSchema = new Schema(
     },
     cover: {
       type: String,
-      required: [true, "Cover image is required"],
     },
     images: {
       type: [String],

@@ -28,7 +28,7 @@ const Card = ({ item }) => {
         <span>4.9</span>
         <span className="font-normal text-gray-500">(1k)</span>
       </div>
-      <p className="font-semibold">{item.price}</p>
+      <p className="font-semibold">$ {item.price}</p>
     </Link>
   );
 };

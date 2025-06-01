@@ -1,11 +1,8 @@
 import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-const Error = ({ info }) => {
+const Error = ({ info, retry }) => {
   const QueryClient = useQueryClient();
-  const retry = () => {
-    QueryClient.invalidateQueries({ queryKey: ["gigs"] });
-  };
 
   return (
     <>
