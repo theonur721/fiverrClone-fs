@@ -11,7 +11,7 @@ import OrderBox from "./OrderBox";
 const Detail = () => {
   const { id } = useParams();
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: "gig",
+    queryKey: ["gig", id],
     queryFn: () => api.get(`/gigs/${id}`).then((res) => res.data.gig),
   });
 
@@ -23,12 +23,16 @@ const Detail = () => {
         <Error info={error} retry={refetch} />
       ) : (
         <div className="flex flex-col lg:flex-row gap-10">
-          <div>
+          {/* Sol Kısım */}
+          <div className="w-full lg:w-2/3">
             <Info data={data} />
             <UserInfo user={data.user} />
           </div>
 
-          <OrderBox data={data} />
+          {/* Sağ Kısım */}
+          <div className="w-full lg:w-1/3 flex justify-center lg:justify-end">
+            <OrderBox data={data} />
+          </div>
         </div>
       )}
     </div>
