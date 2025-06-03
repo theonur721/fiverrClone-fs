@@ -6,6 +6,7 @@ import gigRouter from "./routes/gigRoutes.js";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import reviewRouter from "./routes/reviewRoutes.js";
 
 import fs from "fs";
 import path from "path";
@@ -54,6 +55,7 @@ app.route("/health").get((req, res) => {
 // routleri tanımla
 app.use("/api/auth", authrouter);
 app.use("/api/gigs", gigRouter);
+app.use("/api/review", reviewRouter);
 
 // hatalı yönetimi için
 // - controllerden yapılan yönlendirmeler için bu middleware çalışacak
