@@ -67,3 +67,8 @@ const gigSchema = new Schema(
 );
 
 export default model("Gig", gigSchema);
+
+// ortalama ratingi hesapla
+gigSchema.virtual("avgRating").get(function () {
+  return (this.starCount / this.reviewCount).toFixed(2);
+});
