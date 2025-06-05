@@ -24,7 +24,7 @@ const OrderBox = ({ data }) => {
         </p>
       </div>
       <ul>
-        {data.features.map((i) => (
+        {data.features.map((i, key) => (
           <li className="flex items-center gap-2" key={i}>
             <IoMdCheckmark className="text-black" />
             <span className="text-gray-400">{i}</span>

@@ -7,6 +7,7 @@ import Error from "../../components/Error";
 import Info from "./info";
 import UserInfo from "./UserInfo";
 import OrderBox from "./OrderBox";
+import Reviews from "./Reviews";
 
 const Detail = () => {
   const { id } = useParams();
@@ -27,6 +28,7 @@ const Detail = () => {
           <div className="w-full lg:w-2/3">
             <Info data={data} />
             <UserInfo user={data.user} />
+            <Reviews gigId={id} />
           </div>
 
           {/* Sağ Kısım */}

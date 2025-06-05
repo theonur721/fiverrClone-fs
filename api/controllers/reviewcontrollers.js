@@ -70,6 +70,8 @@ export const deleteReview = async (req, res, next) => {
   try {
     // yorum bilgilerini al
     const review = await Review.findById(req.params.id);
+    console.log("silmeye çalışan:", req.userId);
+    console.log("yorum sahibi:", review.user);
 
     console.log("silmeye çalışan:", req.userId);
     console.log("yorum sahibi:", review.user);
@@ -77,6 +79,7 @@ export const deleteReview = async (req, res, next) => {
     if (req.userId != review.user) {
       return next(error(403, "you can only delete your own reviews"));
     }
+
     // (3) yorumun sahibi ise yorumu sil
     await Review.deleteOne({ _id: req.params.id });
     // (4) gig belgesini güncelle
