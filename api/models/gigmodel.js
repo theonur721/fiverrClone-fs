@@ -63,6 +63,9 @@ const gigSchema = new Schema(
   },
   {
     timestamps: true,
+    // REYTİNGİ GÖRMEK İÇİN
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 

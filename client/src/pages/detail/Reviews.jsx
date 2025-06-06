@@ -57,6 +57,10 @@ const Reviews = ({ gigId }) => {
           : "Loading comments..."}
       </p>
 
+      <p>
+        average: <span className="font-semibold">{avgRating}</span>
+      </p>
+
       <div className="mt-4">
         <form onSubmit={handlesubmit}>
           <div className="flex flex-col gap-4">

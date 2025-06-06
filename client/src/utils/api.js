@@ -1,12 +1,17 @@
-import React from "react";
 import axios from "axios";
-
-const token = localStorage.getItem("token");
 
 const api = axios.create({
   withCredentials: true,
   baseURL: "http://127.0.0.1:4010/api",
-  headers: { Authorization: token && `Bearer ${token}` },
+});
+
+// Her istekten önce token’ı otomatik ekle
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token"); // Güncel token her zaman buradan alınır
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export default api;

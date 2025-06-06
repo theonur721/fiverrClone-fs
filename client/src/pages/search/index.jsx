@@ -30,7 +30,7 @@ const Search = () => {
       <h1>
         {query
           ? `results for ${query}`
-          : category && `results for ${category}category `}
+          : category && `results for ${category} category `}
       </h1>
 
       <div>
