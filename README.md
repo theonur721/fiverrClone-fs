@@ -1,6 +1,6 @@
 # 🎯 Fiver FS Projesi
 
-Bu proje, **satıcı-alıcı etkileşimli bir platform** örneği olarak geliştirilmiştir.  
+Bu proje, **satıcı–alıcı etkileşimli** bir platform örneğidir.  
 Kullanıcılar hesap açabilir, satıcılar gig oluşturabilir ve giglere yorum / değerlendirme yapabilirler.
 
 ---
@@ -9,16 +9,16 @@ Kullanıcılar hesap açabilir, satıcılar gig oluşturabilir ve giglere yorum 
 
 ### Backend
 
-- **express** → routing için
-- **mongoose** → MongoDB veritabanı için
-- **nodemon** → otomatik restart için
-- **bcrypt** → şifreleme için
-- **cookie-parser** → kullanıcı auth & jwt token bilgilerini cookie üzerinden almak için
-- **jsonwebtoken** → JWT token oluşturma & doğrulama
+- **express** → routing
+- **mongoose** → MongoDB
+- **nodemon** → otomatik restart
+- **bcrypt** → şifreleme
+- **cookie-parser** → cookie üzerinden auth/JWT
+- **jsonwebtoken** → JWT oluşturma & doğrulama
 - **dotenv** → ortam değişkenleri
 - **morgan** → istek loglama
-- **cors** → CORS hataları ve veri paylaşımı
-- **multer** → frontend’den backend’e dosya yükleme
+- **cors** → CORS yönetimi
+- **multer** → dosya yükleme (frontend → backend)
 - **cloudinary** → görseller için bulut depolama
 
 ### Frontend
@@ -27,60 +27,61 @@ Kullanıcılar hesap açabilir, satıcılar gig oluşturabilir ve giglere yorum 
 - **react-icons** → ikonlar
 - **react-router-dom** → sayfalama
 - **react-toastify** → bildirimler
-- **moment** → tarih & zaman formatlama
+- **moment** → tarih/zaman formatlama
 - **axios** → API istekleri
-- **react-query** → API istekleri için kolay state yönetimi
+- **react-query** → istek cache & state yönetimi
 - **tailwindcss** → stillendirme
-- **context API** → global state yönetimi
+- **Context API** → global state
 - **splide** → fotoğraf slider
 
 ---
 
 ## ⚡ Özellikler
 
-- Login / Register / Logout işlemleri
-- Giriş yapmadan uygulama inceleme
-- Kayıt olurken satıcı toggle → **phone** ve **description** alanı zorunlu
-- **Sadece satıcı hesaplar** gig oluşturabilir
-- Kullanıcı kendi gigine yorum veya değerlendirme yapamaz
-- Giglere:
+- Login / Register / Logout
+- Giriş yapmadan uygulamayı gezinebilme
+- Kayıt olurken **Satıcı** toggle’ı → **phone** ve **description** alanları aktif
+- **Sadece satıcı** hesaplar gig oluşturabilir
+- Kullanıcı **kendi** gig’ine yorum / değerlendirme yapamaz
+- Giglerde:
   - ⭐ Yorum yapma
   - ⭐ Yıldız verme
   - 🗑️ Yorumu silme
 - Gig eklerken:
   - **1 adet cover**
   - **Birden fazla image**
-- Gigler kategorilere göre listelenebilir
-- Gig ismine göre arama yapılabilir
+- Kategori bazlı listeleme
+- Gig adına göre arama
 
 ---
 
 ## 📝 Notlar
 
-- `require` yerine **import modeli** tercih edildi
-- Hata middleware’i yapıldı → kod tekrarları önlendi
-- Toggle için [uiverse](https://uiverse.io) kullanıldı (ekstra yükleme gerektirmez)
+- `require` yerine **ESM import** kullanıldı
+- **Hata middleware’i** ile tekrarlar azaltıldı
+- Toggle için **uiverse** (ekstra yükleme gerekmez)
 - State yönetimi → **Context API**
-- Dosya gönderim / erişim → **multer** + **cloudinary**
+- Dosya yükleme/erişim → **multer** + **cloudinary**
+- **Proje responsive’dir** (mobil, tablet, desktop ekranlarda uyumlu çalışır)
 
 ---
 
 ## 📸 Ekran Görüntüleri & GIF
 
-**Tanıtım**
+> Görseller büyük boyutta gösterilir; dar ekranlarda **otomatik küçülür (responsive)**.
 
-<p align="center">
-  <img src="./screenshots/screen.gif" alt="Uygulama Tanıtım" width="500"/>
-</p>
+<div align="center">
+  <img src="./screenshots/screen.gif" alt="Uygulama Tanıtım GIF" style="max-width: 1100px; width: 100%; height: auto;" />
+</div>
 
-**Register Screen**
+<br/>
 
-<p align="center">
-  <img src="./screenshots/register_screen.png" alt="Register Screen" width="400"/>
-</p>
+<div align="center">
+  <img src="./screenshots/register_screen.png" alt="Register Screen" style="max-width: 1100px; width: 100%; height: auto;" />
+</div>
 
-**Add Gig Screen**
+<br/>
 
-<p align="center">
-  <img src="./screenshots/add_gig.png" alt="Add Gig Screen" width="400"/>
-</p>
+<div align="center">
+  <img src="./screenshots/add_gig.png" alt="Add Gig Screen" style="max-width: 1100px; width: 100%; height: auto;" />
+</div>
