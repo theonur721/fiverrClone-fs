@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "../../utils/api";
 import Loader from "../../components/Loader";
@@ -9,13 +9,24 @@ import { toast } from "react-toastify";
 const Reviews = ({ gigId }) => {
   const queryClient = useQueryClient();
 
-  // Bütün yorumları çekmek için
+  // Yorumları çek
   const { isLoading, error, data, refetch } = useQuery({
-    queryKey: ["reviews", gigId], // gigId'yi de ekle, böylece gigId değişince refetch olur
+    queryKey: ["reviews", gigId],
     queryFn: () => api.get(`/review/${gigId}`).then((res) => res.data.reviews),
   });
 
-  // Yeni yorum eklemek için
+  // Ortalama puanı güvenle hesapla
+  const avgRating = useMemo(() => {
+    const reviews = Array.isArray(data) ? data : [];
+    if (reviews.length === 0) return "0.0";
+    const sum = reviews.reduce(
+      (acc, curr) => acc + (Number(curr?.star) || 0),
+      0
+    );
+    return (sum / reviews.length).toFixed(1);
+  }, [data]);
+
+  // Yeni yorum ekleme
   const { isLoading: isSubmitting, mutate } = useMutation({
     mutationFn: (newReview) => api.post("/review", newReview),
     onSuccess: () => {
@@ -27,9 +38,8 @@ const Reviews = ({ gigId }) => {
     },
   });
 
-  const handlesubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.target);
     const star = formData.get("rating");
     const desc = formData.get("description");
@@ -39,20 +49,20 @@ const Reviews = ({ gigId }) => {
       return;
     }
 
-    const newComment = {
+    mutate({
       star: Number(star),
       desc,
       gigId,
-    };
-    mutate(newComment);
-    e.target.reset(); // formu temizle
+    });
+
+    e.target.reset();
   };
 
   return (
     <div>
       <h1 className="font-semibold text-lg">Description</h1>
       <p className="font-semibold text-gray-500">
-        {data
+        {Array.isArray(data)
           ? `${data.length} comments have been posted for this service`
           : "Loading comments..."}
       </p>
@@ -62,14 +72,21 @@ const Reviews = ({ gigId }) => {
       </p>
 
       <div className="mt-4">
-        <form onSubmit={handlesubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4">
             <div>
               <h2 className="text-base font-medium mb-1">
                 Rate your experience
               </h2>
               <div className="rating flex gap-1">
-                <input value="5" name="rating" id="star5" type="radio" />
+                {/* name aynı olmalı; required ekledim */}
+                <input
+                  value="5"
+                  name="rating"
+                  id="star5"
+                  type="radio"
+                  required
+                />
                 <label htmlFor="star5">⭐</label>
                 <input value="4" name="rating" id="star4" type="radio" />
                 <label htmlFor="star4">⭐</label>
@@ -110,7 +127,7 @@ const Reviews = ({ gigId }) => {
       ) : error ? (
         <Error info={error.message} refetch={refetch} />
       ) : (
-        data.map((item) => (
+        (data ?? []).map((item) => (
           <Review key={item._id} item={item} refetch={refetch} />
         ))
       )}
