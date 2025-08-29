@@ -67,17 +67,19 @@ Kullanıcılar hesap açabilir, satıcılar gig oluşturabilir ve giglere yorum 
 
 ## 📸 Ekran Görüntüleri & GIF
 
+**Tanıtım**
+
 <p align="center">
-  <img src="./screenshots/screen.gif" alt="Uygulama Tanıtım" width="600"/>
+  <img src="./screenshots/screen.gif" alt="Uygulama Tanıtım" width="500"/>
 </p>
 
-### Register Screen
+**Register Screen**
 
 <p align="center">
   <img src="./screenshots/register_screen.png" alt="Register Screen" width="400"/>
 </p>
 
-### Add Gig Screen
+**Add Gig Screen**
 
 <p align="center">
   <img src="./screenshots/add_gig.png" alt="Add Gig Screen" width="400"/>
