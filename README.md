@@ -1,4 +1,4 @@
-# 🎯 Fiver FS Projesi
+# 🎯 Fiver FullStack Projesi
 
 Bu proje, **satıcı–alıcı etkileşimli** bir platform örneğidir.  
 Kullanıcılar hesap açabilir, satıcılar gig oluşturabilir ve giglere yorum / değerlendirme yapabilirler.
@@ -66,22 +66,6 @@ Kullanıcılar hesap açabilir, satıcılar gig oluşturabilir ve giglere yorum 
 
 ---
 
-## 📸 Ekran Görüntüleri & GIF
+## 📸 Ekran Görüntüsü
 
-> Görseller büyük boyutta gösterilir; dar ekranlarda **otomatik küçülür (responsive)**.
-
-<div align="center">
-  <img src="./screenshots/screen.gif" alt="Uygulama Tanıtım GIF" style="max-width: 1100px; width: 100%; height: auto;" />
-</div>
-
-<br/>
-
-<div align="center">
-  <img src="./screenshots/register_screen.png" alt="Register Screen" style="max-width: 1100px; width: 100%; height: auto;" />
-</div>
-
-<br/>
-
-<div align="center">
-  <img src="./screenshots/add_gig.png" alt="Add Gig Screen" style="max-width: 1100px; width: 100%; height: auto;" />
-</div>
+![](./screenshots/screen.gif)
